@@ -1,14 +1,5 @@
 <?php
-/**
- * workersテーブル用のマイグレーションファイル
- * 
- * このファイルでは社員管理システムのデータを格納するため
- * デフォルテーブルのひな型を格納してます。 
- * 
- * @version 1.0 
- * @author Rikuto Otsuka
- * 
- */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
