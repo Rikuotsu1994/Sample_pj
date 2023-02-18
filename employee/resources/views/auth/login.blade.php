@@ -4,7 +4,7 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        {{--  id  --}}
+        {{-- id --}}
         <div>
             <x-input-label for="id" :value="__('id')" />
             <x-text-input id="id" class="block mt-1 w-full"
@@ -13,7 +13,7 @@
                             required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('id')" class="mt-2" />
 
-        {{--  password  --}}
+        {{-- password --}}
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
