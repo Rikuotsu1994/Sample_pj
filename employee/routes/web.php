@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +15,14 @@ use App\Http\Controllers\EmployController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+Route::get('/', function () {return view('auth/login');});
 
-Route::get('employ',[EmployController::class,'index']
+Route::get('employee',function () {return view('employee/index');}
 )->middleware(['auth', 'verified'])->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('employee/create', function () {return view('employee/create');}
+)->middleware(['auth', 'verified'])->name('create');
+Route::post('employee/create',[EmployeeController::class,'employeeCreate'])->name('create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
