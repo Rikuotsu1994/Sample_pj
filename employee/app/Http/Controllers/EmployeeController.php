@@ -19,7 +19,7 @@ class EmployeeController extends Controller
     * @param array $request
     * @return RedirectResponse
     */
-    public function employeeCreate(EmpolyeeFormRequest $request): RedirectResponse
+    public function createEmployee(EmpolyeeFormRequest $request): RedirectResponse
     {
         $param = [
             'password' => bcrypt($request->password),
@@ -41,5 +41,26 @@ class EmployeeController extends Controller
             DB::rollBack();
             return redirect('/employee/create')->with('message', '登録に失敗しました。トップ画面に戻ります。');
         }
+    }
+
+    /**
+    * 検索条件に一致する社員データを取得します
+    *
+    * @param Request $request
+    * @return View
+    */
+    public function searchEmployee(Request $request): View
+    {
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $department = $request->input('department');
+        $division = $request->input('division');
+        $query = DB::table('workers');
+        $query->where('id', 'like', '%' .$id .'%');
+        $query->where('name', 'like', '%' .$name .'%');
+        $query->where('department', 'like', '%' .$department .'%');
+        $query->where('division', 'like', '%' .$division .'%');
+        $workers = $query->paginate(30);
+        return view('employee/search', ['workers' => $workers])->with(compact('id', 'name', 'department', 'division'));
     }
 }

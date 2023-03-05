@@ -17,12 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('auth/login');});
 
-Route::get('employee',function () {return view('employee/index');}
+Route::get('employee', function () {return view('employee/index');}
 )->middleware(['auth', 'verified'])->name('index');
 
 Route::get('employee/create', function () {return view('employee/create');}
 )->middleware(['auth', 'verified'])->name('create');
-Route::post('employee/create',[EmployeeController::class,'employeeCreate'])->name('create');
+Route::post('employee/create',[EmployeeController::class,'createEmployee'])->name('create');
+
+Route::get('employee/search',[EmployeeController::class,'searchEmployee'])
+->middleware(['auth', 'verified'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
