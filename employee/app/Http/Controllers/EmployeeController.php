@@ -61,6 +61,6 @@ class EmployeeController extends Controller
         $query->where('department', 'like', '%' .$department .'%');
         $query->where('division', 'like', '%' .$division .'%');
         $workers = $query->paginate(30);
-        return view('employee/search', ['workers' => $workers])->with(compact('id', 'name', 'department', 'division'));
+        return view('/employee/search', ['workers' => $workers])->with(compact('id', 'name', 'department', 'division'));
     }
 }
