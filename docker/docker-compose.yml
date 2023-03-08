@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  #php用コンテナ
+  php-apache:
+    build:
+      context: .
+      dockerfile: ./php-apache/DockerFile
+    container_name: php-apache
+    volumes:
+      - ./../employee:/var/www/html/employee
+      - ./php-apache/log:/var/log/apache2
+      - ./php-apache/conf/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+    ports:
+      - 8000:80
+    tty: true
+    depends_on:
+      - mysql
+    environment:
+      COMPOSER_ALLOW_SUPERUSER: 1
+
+  #MySQL用コンテナ
+  mysql:
+    image: mysql:8.0.32
+    container_name: mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - 8010:3306
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: employee
+      TZ: "Asia/Tokyo"
