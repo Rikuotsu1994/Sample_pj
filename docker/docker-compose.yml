@@ -3,11 +3,10 @@ services:
   #php用コンテナ
   php-apache:
     build:
-      context: .
-      dockerfile: ./php-apache/DockerFile
+      context: ./../
+      dockerfile: ./docker/php-apache/DockerFile
     container_name: php-apache
     volumes:
-      - ./../employee:/var/www/html/employee
       - ./php-apache/log:/var/log/apache2
       - ./php-apache/conf/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
     ports:
