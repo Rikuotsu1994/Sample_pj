@@ -26,7 +26,10 @@ services:
     ports:
       - 8010:3306
     tty: true
+    user: 1000:1000
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: employee
       TZ: "Asia/Tokyo"
+    # Mac端末の場合のみ有効にする
+    # platform: linux/arm64
