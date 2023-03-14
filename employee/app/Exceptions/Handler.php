@@ -45,10 +45,11 @@ class Handler extends ExceptionHandler
     /**
     * 419 HTTPレスポンスの例外処理を実行 
     *
-    * @param mixed $request, Throwable $e
+    * @param \Illuminate\Http\Request $request
+    * @param Throwable $e
     * @return mixed
     */
-    public function render(mixed $request, Throwable $e): mixed
+    public function render($request, Throwable $e): mixed
     {
         if ($e instanceof TokenMismatchException){
             if (Auth::check()) {
