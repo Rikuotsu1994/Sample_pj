@@ -29,10 +29,10 @@
 
         <div class="mb-5 text-xl">
           <label>氏名</label>
-          @if ($errors->has('name'))
-            <div class="text-sm text-red-400">{{ $errors->first('name') }}</div>
+          @if ($errors->has('worker_name'))
+            <div class="text-sm text-red-400">{{ $errors->first('worker_name') }}</div>
           @endif
-          <input type="text" name="name" value="{{ old('name') }}"
+          <input type="text" name="worker_name" value="{{ old('worker_name') }}"
             class="w-full py-2 border-b focus:outline-none focus:border-b-4 border-green-300"></label>
         </div>
 

@@ -9,13 +9,13 @@
         @csrf
         <div class="[&>div]:mb-3">
           <div>
-            <label>id</label>
-            <input type="text" name="id" value="@if (isset( $workers )){{$id}}@endif"
+            <label>ID</label>
+            <input type="text" name="worker_id" value="@if (isset( $workers )){{$worker_id}}@endif"
               class="w-full py-2 border-b focus:outline-none focus:border-b-4 border-green-300">
           </div>
           <div>
             <label>氏名</label>
-            <input type="text" name="name" value="@if (isset( $workers )){{$name}}@endif"
+            <input type="text" name="worker_name" value="@if (isset( $workers )){{$worker_name}}@endif"
               class="w-full py-2 border-b focus:outline-none focus:border-b-4 border-green-300">
           </div>
           <div>
@@ -56,8 +56,8 @@
         </tr>
         @foreach ($workers as $worker)
           <tr class="[&>td]:border border-slate-300">
-            <td>{{ $worker->id }}</td>
-            <td>{{ $worker->name }}</td>
+            <td>{{ $worker->worker_id }}</td>
+            <td>{{ $worker->worker_name }}</td>
             <td>{{ $worker->sex }}</td>
             <td>{{ $worker->age }}</td>
             <td>{{ $worker->address }}</td>

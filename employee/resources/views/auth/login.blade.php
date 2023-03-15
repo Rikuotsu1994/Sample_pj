@@ -16,14 +16,14 @@
   @csrf
     {{-- id --}}
     <div>
-      <x-input-label for="workersId" :value="__('id')" />
-      <x-text-input id="workersId" class="block mt-1 w-full p-3 text-xl" type="text" name="id" :value="old('id')" required autofocus/>
-      <x-input-error :messages="$errors->get('id')" class="mt-2" />
+      <x-input-label for="worker_id" :value="__('ID')" />
+      <x-text-input id="worker_id" class="block mt-1 w-full p-3 text-xl" type="text" name="worker_id" :value="old('worker_id')" autofocus/>
+      <x-input-error :messages="$errors->get('worker_id')" class="mt-2" />
 
     {{-- password --}}
     <div class="mt-4">
-      <x-input-label for="password" :value="__('Password')" />
-      <x-text-input id="password" class="block mt-1 w-full p-3 text-xl" type="password" name="password" required/>
+      <x-input-label for="password" :value="__('パスワード')" />
+      <x-text-input id="password" class="block mt-1 w-full p-3 text-xl" type="password" name="password" />
       <x-input-error :messages="$errors->get('password')" class="mt-2" />
     </div>
 

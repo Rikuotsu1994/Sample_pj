@@ -12,7 +12,7 @@ class WorkerSeeder extends Seeder
     {
         $worker = [
             'password' => bcrypt('12345678'),
-            'name' => 'Admin',
+            'worker_name' => 'Admin',
             'sex' => '男',
             'age' => '20',
             'address' => '東京都XXX市XX町',
