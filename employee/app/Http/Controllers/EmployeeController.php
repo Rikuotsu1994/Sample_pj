@@ -7,11 +7,28 @@ use App\Http\Requests\EmpolyeeFormRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class EmployeeController extends Controller
 {
+    /**
+    * ログイン済みの場合はトップ画面にリダイレクトします
+    *
+    * @param void
+    * @return View
+    */
+    public function loginEmployee(): View
+    {
+        if (Auth::check()) {
+            return view('employee/index');
+        }
+        else {
+            return view('auth/login');
+        }
+    }
+
     /**
     * 社員データを登録します
     *

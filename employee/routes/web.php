@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('auth/login');});
+Route::get('/', [EmployeeController::class,'loginEmployee']);
 
 Route::get('employee/', function () {return view('employee/index');})
 ->middleware(['auth', 'verified'])->name('index');

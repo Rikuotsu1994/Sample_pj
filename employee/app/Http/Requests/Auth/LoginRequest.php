@@ -45,7 +45,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'worker_id' => trans('auth.failed'),
+                'worker_id' => trans('IDとパスワードの組み合わせに誤りがあります。再度入力をしてください。'),
             ]);
         }
 

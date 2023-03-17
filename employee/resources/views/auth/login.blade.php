@@ -3,7 +3,7 @@
   <script>
     window.addEventListener('pageshow',()=>{
 	    if(window.performance.getEntriesByType("navigation")[0].type === 'back_forward')
-        location.reload();
+        history.forward();
     });
   </script>
   @if (Session::has('message'))
@@ -28,15 +28,9 @@
     </div>
 
     <div class="flex items-center justify-end mt-4">
-      @if (Auth::check())
-        <x-primary-button class="ml-3" disabled>
-          ログイン済み
-        </x-primary-button>
-      @else
-        <x-primary-button class="ml-3">
-          {{ __('Log in') }}
-        </x-primary-button>
-      @endif
+      <x-primary-button class="ml-3">
+        {{ __('ログイン') }}
+      </x-primary-button>
     </div>
   </form>
 </x-guest-layout>
