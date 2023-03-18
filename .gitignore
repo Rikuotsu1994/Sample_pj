@@ -19,5 +19,7 @@ yarn-error.log
 
 /docker/mysql/*
 !/docker/mysql/.gitkeep
-/docker/php-apache/log/*
-!/docker/php-apache/log/.gitkeep
+/docker/php-apache/logs/laravel/*
+!/docker/php-apache/logs/laravel/.gitkeep
+/docker/php-apache/logs/apache/*
+!/docker/php-apache/logs/apache/.gitkeep
