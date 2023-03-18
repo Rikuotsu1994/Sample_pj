@@ -7,7 +7,15 @@ services:
       dockerfile: ./docker/php-apache/DockerFile
     container_name: php-apache
     volumes:
-      - ./php-apache/log:/var/log/apache2
+      - ./../employee/app:/var/www/html/employee/app
+      - ./../employee/bootstrap:/var/www/html/employee/bootstrap
+      - ./../employee/config:/var/www/html/employee/config
+      - ./../employee/database:/var/www/html/employee/database
+      - ./../employee/lang:/var/www/html/employee/lang
+      - ./../employee/resources:/var/www/html/employee/resources
+      - ./../employee/routes:/var/www/html/employee/routes
+      - ./php-apache/logs/laravel:/var/www/html/employee/storage/logs
+      - ./php-apache/logs/apache:/var/log/apache2
       - ./php-apache/conf/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
     ports:
       - 8000:80

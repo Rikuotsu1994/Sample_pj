@@ -10,61 +10,74 @@
 ### 開発環境の起動手順
 1. 下記コマンドを使用して`dockerディレクトリ`に移動します。  
    ```console
-   cd <PJ-Sample01までのパス>/PJ-Sample01/docker
+   cd <PJ-Sample01までのパス>/docker
    ```
 
-2. 下記コマンドを使用してイメージ・コンテナの構築をします。  
-   ※オプション『-d』はバックグランド実行、『--build』はイメージを再構築するという意味です。  
+2. 下記コマンドを使用してイメージの構築をします。  
    ```console
-   docker-compose up -d --build
+   docker-compose build
    ```
 
-3. 【必要に応じて】  
+3. 下記コマンドを使用してコンテナの構築をします。  
+   ※オプション『-d』はバックグランド実行するという意味です。  
+   ```console
+   docker-compose up -d
+   ```
+
+4. 【必要に応じて】  
    下記コマンドを使用してコンテナが正常に起動しているかを確認します。  
    ```console
    docker-compose ps
    ```
 
-4. 下記コマンドを使用して`php-apacheコンテナ`に入ります。
+5. 下記コマンドを使用して`php-apacheコンテナ`に入ります。
    ```console
    docker exec -it php-apache /bin/bash
    ```
 
-5. 【初回のみ】  
+6. 【初回/DB定義の変更時のみ】  
    `php-apacheコンテナ`内で下記コマンドを実行し、データベースを初期化します。
    ```console
    php artisan migrate
    php artisan db:seed
    ```
 
-6. `php-apacheコンテナ`内で下記コマンドを実行し、開発サーバを起動します。
+7. `php-apacheコンテナ`内で下記コマンドを実行し、開発サーバを起動します。
    ```console
    php artisan serve
    ```
 
-7. コマンドプロンプト/ターミナルで新しいウィンドウを開き、下記コマンドを使用して`dockerディレクトリ`に移動します。  
+8. コマンドプロンプト/ターミナルで新しいウィンドウを開き、下記コマンドを使用して`dockerディレクトリ`に移動します。  
    ```console
-   cd <PJ-Sample01までのパス>/PJ-Sample01/docker
+   cd <PJ-Sample01までのパス>/docker
    ```
 
-8. 下記コマンドを使用して`php-apacheコンテナ`に入ります。
+9. 下記コマンドを使用して`php-apacheコンテナ`に入ります。
    ```console
    docker exec -it php-apache /bin/bash
    ```
 
-9. `php-apacheコンテナ`内で下記コマンドを実行し、開発環境を起動します。
-   ```console
-   npm run dev
-   ```
+10. `php-apacheコンテナ`内で下記コマンドを実行し、開発環境を起動します。  
+    ```console
+    npm run dev
+    ```
 
 以上が開発環境の起動手順です。
 
 ### 開発環境へのアクセス
 - トップページへのアクセス  
-   Google Chrome等のブラウザソフトを使用して[http://localhost:8000](http://localhost:8000)にアクセスするとトップページが表示されます。  
+   [Google Chrome](https://www.google.com/intl/ja_jp/chrome/)等のブラウザソフトを使用して[http://localhost:8000](http://localhost:8000)にアクセスするとトップページが表示されます。  
+   
+   ※サイトにアクセスした際にエラーが表示された場合  
+   `<PJ-Sample01までのパス>/docker/php-apache/logs/laravel/laravel.log`ファイルが存在していない可能性があります。  
+   その場合は`laravel.log`を空ファイルとして作成し、下記コマンドで再度実行してください。
+   ```console
+   docker-compose down
+   docker-compose up -d
+   ```
 
-- DBへのアクセス
-  MySQL Workbench等のDB操作ソフトを使用して下記にアクセスするとデータを確認することが出来ます。  
+- DBへのアクセス  
+  [MySQL Workbench](https://www.mysql.com/jp/products/workbench/)等のDB操作ソフトを使用して下記にアクセスするとデータを確認することが出来ます。  
   
   |項目|値|
   |:--|:--|
@@ -75,14 +88,14 @@
   |パスワード|root|
 
 ### 開発環境の停止手順
-1. 開発環境の起動手順 No.6 のコマンドプロンプト/ターミナルで『Ctrl + C』を押して開発サーバを停止します。  
+1. 開発環境の起動手順`No.7`のコマンドプロンプト/ターミナルで『Ctrl + C』もしくは『Command + C』を押して開発サーバを停止します。  
 
 2. `php-apacheコンテナ`内で下記コマンドを実行し、コンテナから抜けます。  
    ```console
    exit
    ```
 
-3. 開発環境の起動手順 No.9 のコマンドプロンプト/ターミナルで『Ctrl + C』を押して開発環境を停止します。  
+3. 開発環境の起動手順`No.10`のコマンドプロンプト/ターミナルで『Ctrl + C』もしくは『Command + C』を押して開発環境を停止します。  
 
 4. `php-apacheコンテナ`内で下記コマンドを実行し、コンテナから抜けます。  
    ```console

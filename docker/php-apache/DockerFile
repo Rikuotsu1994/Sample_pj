@@ -30,13 +30,24 @@ RUN apt update &&\
 RUN mv /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled && \
   /bin/sh -c a2enmod rewrite
 
-# employeeプロジェクトをコピーして権限を変更する
+# employeeプロジェクトをコピーする
 COPY ./employee/ /var/www/html/employee/
 RUN chmod -R 777 /var/www/html/employee
 
 # ワークディレクトリを設定する
 WORKDIR /var/www/html/employee
 
-# composerとnpmを使用してライブラリをインストールする
+# composerとnpmを使用してライブラリをインストールし、ビルドを行う
 RUN composer install && \
-  npm install
+  npm install && \
+  npm run build
+
+# 永続化するディレクトリ群は削除する
+RUN cd /var/www/html/employee && \
+  rm -r ./app \
+  ./bootstrap \
+  ./config \
+  ./database \
+  ./lang \
+  ./resources \
+  ./routes
