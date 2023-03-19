@@ -1,10 +1,11 @@
 <x-guest-layout>
   <x-auth-session-status class="mb-4" :status="session('status')" />
   <script>
-    window.addEventListener('pageshow',()=>{
-	    if(window.performance.getEntriesByType("navigation")[0].type === 'back_forward')
-        history.forward();
-    });
+    window.onpageshow = function(event) {
+      if (event.persisted || window.performance.getEntriesByType("navigation")[0].type === 'back_forward') {
+        window.location.reload();
+      }
+    };
   </script>
   @if (Session::has('message'))
     <div class="fs-5 text-danger fw-bold">
