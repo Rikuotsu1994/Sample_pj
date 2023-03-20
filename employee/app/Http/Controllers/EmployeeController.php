@@ -14,16 +14,31 @@ use Illuminate\View\View;
 class EmployeeController extends Controller
 {
     /**
+    * ログイン済みかどうかの判定を行います
+    *
+    * @return View
+    */
+    public function loginEmployee(): View
+    {
+        if (Auth::check()) {
+            return view('employee/index');
+        }
+        else {
+            return view('auth/login');
+        }
+    }
+
+    /**
     * 社員データを登録します
     *
-    * @param array $request
+    * @param EmpolyeeFormRequest $request
     * @return RedirectResponse
     */
     public function createEmployee(EmpolyeeFormRequest $request): RedirectResponse
     {
         $param = [
             'password' => bcrypt($request->password),
-            'name' => $request->name,
+            'worker_name' => $request->worker_name,
             'sex' => $request->sex,
             'age' => $request->age,
             'address' => $request->address,
@@ -51,16 +66,16 @@ class EmployeeController extends Controller
     */
     public function searchEmployee(Request $request): View
     {
-        $id = $request->input('id');
-        $name = $request->input('name');
+        $worker_id = $request->input('worker_id');
+        $worker_name = $request->input('worker_name');
         $department = $request->input('department');
         $division = $request->input('division');
         $query = DB::table('workers');
-        $query->where('id', 'like', '%' .$id .'%');
-        $query->where('name', 'like', '%' .$name .'%');
+        $query->where('worker_id', 'like', '%' .$worker_id .'%');
+        $query->where('worker_name', 'like', '%' .$worker_name .'%');
         $query->where('department', 'like', '%' .$department .'%');
         $query->where('division', 'like', '%' .$division .'%');
         $workers = $query->paginate(30);
-        return view('/employee/search', ['workers' => $workers])->with(compact('id', 'name', 'department', 'division'));
+        return view('/employee/search', ['workers' => $workers])->with(compact('worker_id', 'worker_name', 'department', 'division'));
     }
 }

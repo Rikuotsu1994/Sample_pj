@@ -21,7 +21,7 @@ class EmpolyeeFormRequest extends FormRequest
     {
         return [
             'password' => 'required|min:8',
-            'name' => 'required',
+            'worker_name' => 'required',
             'sex' => 'required',
             'age' => 'required|numeric|between:15,130',
             'address' => 'required',
@@ -39,7 +39,7 @@ class EmpolyeeFormRequest extends FormRequest
         return [
             'password.required' => 'パスワードを入力してください。',
             'password.min' => 'パスワードは8文字以上入力してください。',
-            'name.required' => '氏名を入力してください。',
+            'worker_name.required' => '氏名を入力してください。',
             'sex.required' => '性別を入力してください。',
             'age.required' => '年齢を入力してください。',
             'age.numeric' => '年齢は半角数字で入力してください。',
