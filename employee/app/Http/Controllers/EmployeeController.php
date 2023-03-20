@@ -14,9 +14,8 @@ use Illuminate\View\View;
 class EmployeeController extends Controller
 {
     /**
-    * ログイン済みの場合はトップ画面にリダイレクトします
+    * ログイン済みかどうかの判定を行います
     *
-    * @param void
     * @return View
     */
     public function loginEmployee(): View

@@ -1,6 +1,7 @@
 <x-guest-layout>
   <x-auth-session-status class="mb-4" :status="session('status')" />
   <script>
+    {{-- ブラウザバック時にリロード --}}
     window.onpageshow = function(event) {
       if (event.persisted || window.performance.getEntriesByType("navigation")[0].type === 'back_forward') {
         window.location.reload();
