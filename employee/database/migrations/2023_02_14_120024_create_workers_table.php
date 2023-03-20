@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-    * @return void
-    */
     public function up()
     {
         Schema::create('workers', function (Blueprint $table) {
@@ -24,9 +21,6 @@ return new class extends Migration
         });
     }
 
-    /**
-    * @return void
-    */
     public function down()
     {
         Schema::dropIfExists('workers');
