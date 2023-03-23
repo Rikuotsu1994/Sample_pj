@@ -64,7 +64,7 @@
             <td>{{ $worker->department }}</td>
             <td>{{ $worker->division }}</td>
             <td>{{ $worker->hire_date }}</td>
-            <td><a class="bg-indigo-700 text-white px-1 rounded" href="">更新</td>
+            <td><a class="bg-indigo-700 text-white px-1 rounded" href="{{ route('edit',[$worker->worker_id]) }}" method="post">更新</td>
             <td><a class="bg-indigo-700 text-white px-1 rounded" href="">削除</td>
           </tr>
         @endforeach

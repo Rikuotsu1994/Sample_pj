@@ -78,4 +78,45 @@ class EmployeeController extends Controller
         $workers = $query->paginate(30);
         return view('/employee/search', ['workers' => $workers])->with(compact('worker_id', 'worker_name', 'department', 'division'));
     }
+
+    /**
+    * 更新対象の社員データを取得します
+    *
+    * @param Request $request
+    * @return View
+    */
+    public function editEmployee(Request $request): View
+    {
+        $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
+        return view('employee/edit', ['workers' => $workers]);
+    }
+
+    /**
+    * 社員データを更新します
+    *
+    * @param mpolyeeFormRequest $request
+    * @return RedirectResponse
+    */
+    public function updateEmployee(EmpolyeeFormRequest $request): RedirectResponse
+    {
+        $param = [
+            'worker_name' => $request->worker_name,
+            'sex' => $request->sex,
+            'age' => $request->age,
+            'address' => $request->address,
+            'department' => $request->department,
+            'division' => $request->division,
+            'hire_date' => $request->hire_date,
+        ];
+
+        DB::beginTransaction();
+        try {
+            DB::table('workers')->where('worker_id',$request->worker_id)->update($param);
+            DB::commit();
+            return redirect('/employee/edit', ['workers' => $workers]);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return redirect('/employee/edit', ['workers' => $workers]);
+        }
+    }
 }
