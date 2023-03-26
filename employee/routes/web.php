@@ -28,10 +28,13 @@ Route::post('employee/create', [EmployeeController::class, 'createEmployee'])->n
 Route::get('employee/search', [EmployeeController::class, 'searchEmployee'])
 ->middleware(['auth', 'verified'])->name('search');
 
-Route::get('employee/edit/{worker_id}',[EmployeeController::class, 'editEmployee'])
-->middleware(['auth', 'verified'])->name('edit');
+Route::get('employee/update', function () {return view('employee/update');})
+->middleware(['auth', 'verified'])->name('update');
 
-Route::patch('employee/edit/{worker_id}',[EmployeeController::class, 'updateEmployee'])->name('edit');
+Route::get('employee/update/{worker_id}', [EmployeeController::class, 'getUpdateEmployee'])
+->middleware(['auth', 'verified'])->name('update');
+
+Route::post('employee/update/{worker_id}', [EmployeeController::class, 'updateEmployee'])->name('update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

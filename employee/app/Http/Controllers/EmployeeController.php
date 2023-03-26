@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmpolyeeFormRequest;
+use App\Http\Requests\EmployeeFormRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Session;
 
 class EmployeeController extends Controller
 {
@@ -31,10 +32,10 @@ class EmployeeController extends Controller
     /**
     * 社員データを登録します
     *
-    * @param EmpolyeeFormRequest $request
+    * @param EmployeeFormRequest $request
     * @return RedirectResponse
     */
-    public function createEmployee(EmpolyeeFormRequest $request): RedirectResponse
+    public function createEmployee(EmployeeFormRequest $request): RedirectResponse
     {
         $param = [
             'password' => bcrypt($request->password),
@@ -85,19 +86,19 @@ class EmployeeController extends Controller
     * @param Request $request
     * @return View
     */
-    public function editEmployee(Request $request): View
+    public function getUpdateEmployee(Request $request): View
     {
         $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
-        return view('employee/edit', ['workers' => $workers]);
+        return view('/employee/update', ['workers' => $workers]);
     }
 
     /**
     * 社員データを更新します
     *
-    * @param mpolyeeFormRequest $request
-    * @return RedirectResponse
+    * @param EmployeeFormRequest $request
+    * @return View
     */
-    public function updateEmployee(EmpolyeeFormRequest $request): RedirectResponse
+    public function updateEmployee(EmployeeFormRequest $request): mixed
     {
         $param = [
             'worker_name' => $request->worker_name,
@@ -113,10 +114,14 @@ class EmployeeController extends Controller
         try {
             DB::table('workers')->where('worker_id',$request->worker_id)->update($param);
             DB::commit();
-            return redirect('/employee/edit', ['workers' => $workers]);
+            $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
+            Session::flash('message', '更新が完了しました。社員検索画面に戻ります。');
+            return view('employee/update', ['workers' => $workers]);
         } catch (QueryException $e) {
             DB::rollBack();
-            return redirect('/employee/edit', ['workers' => $workers]);
+            $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
+            Session::flash('message', '更新に失敗しました。社員検索画面に戻ります。');
+            return view('employee/update', ['workers' => $workers]);
         }
     }
 }

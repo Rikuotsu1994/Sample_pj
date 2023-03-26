@@ -1,5 +1,26 @@
 <x-app-layout>
-  <a href="{{ route('search') }}" class="text-xl border-4 w-20 bg-blue-300">戻る</a>
+  @if (Session::has('message'))
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+      $(window).load(function() {
+        $('#modal_box').modal('show');
+      });
+    </script>
+    <div class="modal fade modal-lg" id="modal_box" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body fs-3">
+            {{ session('message') }}
+          </div>
+          <div class="modal-footer">
+            <a href="{{ route('search') }}" class="btn btn-outline-dark">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  @endif
+
+  <a href="{{ route('search') }}" class="bg-indigo-700 text-white rounded mb-5 text-xl px-1">戻る</a>
   <div class="d-flex justify-center">
     <div class="text-3xl">社員更新</div>
   </div>
@@ -13,8 +34,8 @@
         <p class="w-full py-2 border-b focus:outline-none focus:border-b-4 border-green-300">
           {{$worker->worker_id}}</p>
       </div>
-      <form action="/employee/edit/{{$worker->worker_id}}" method="post">
-      <input type="hidden" name="_method" value="PATCH">
+      <form action="/employee/update/{{$worker->worker_id}}" method="post">
+
         @csrf
         <div>
           <label>氏名</label>
@@ -37,7 +58,7 @@
         <div>
           <label>年齢</label>
           @if ($errors->has('age'))
-            <div class="text-sm text-red-400"></div>
+            <div class="text-sm text-red-400">{{ $errors->first('age') }}</div>
           @endif
           <input type="text" name="age" value="{{ $worker->age }}"
             class="w-full py-2 border-b focus:outline-none focus:border-b-4 border-green-300">

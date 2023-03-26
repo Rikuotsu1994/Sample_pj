@@ -25,6 +25,13 @@ class Worker extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'worker_name',
+        'sex',
+        'age',
+        'address',
+        'department',
+        'division',
+        'hire_date',
     ];
 
     /**

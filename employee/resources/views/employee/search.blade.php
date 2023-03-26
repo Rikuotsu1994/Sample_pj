@@ -1,5 +1,5 @@
 <x-app-layout>
-  <a href="{{ route('index') }}" class="text-xl border-4 w-20 bg-blue-300">戻る</a>
+  <a href="{{ route('index') }}" class="bg-indigo-700 text-white rounded mb-5 text-xl px-1">戻る</a>
   <div class="d-flex justify-center">
     <div class="text-3xl">データ検索</div>
   </div>
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="d-flex justify-center">
-          <input class="mb-3 text-xl border-8 bg-blue-300" type="submit" value="社員検索">
+          <input class="mb-5 text-xl border-8 bg-blue-300" type="submit" value="社員検索">
         </div>
       </form>
     </div>
@@ -64,7 +64,7 @@
             <td>{{ $worker->department }}</td>
             <td>{{ $worker->division }}</td>
             <td>{{ $worker->hire_date }}</td>
-            <td><a class="bg-indigo-700 text-white px-1 rounded" href="{{ route('edit',[$worker->worker_id]) }}" method="post">更新</td>
+            <td><a class="bg-indigo-700 text-white px-1 rounded" href="{{ route('update',[$worker->worker_id]) }}">更新</td>
             <td><a class="bg-indigo-700 text-white px-1 rounded" href="">削除</td>
           </tr>
         @endforeach
