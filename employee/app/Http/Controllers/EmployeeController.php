@@ -37,19 +37,18 @@ class EmployeeController extends Controller
     */
     public function createEmployee(EmployeeFormRequest $request): RedirectResponse
     {
-        $param = [
-            'password' => bcrypt($request->password),
-            'worker_name' => $request->worker_name,
-            'sex' => $request->sex,
-            'age' => $request->age,
-            'address' => $request->address,
-            'department' => $request->department,
-            'division' => $request->division,
-            'hire_date' => $request->hire_date,
-        ];
-
-        DB::beginTransaction();
         try {
+            $param = [
+                'password' => bcrypt($request->password),
+                'worker_name' => $request->worker_name,
+                'sex' => $request->sex,
+                'age' => $request->age,
+                'address' => $request->address,
+                'department' => $request->department,
+                'division' => $request->division,
+                'hire_date' => $request->hire_date,
+            ];
+            DB::beginTransaction();
             DB::table('workers')->insert($param);
             DB::commit();
             return redirect('/employee/create')->with('message', '登録が完了しました。トップ画面に戻ります。');
@@ -98,20 +97,19 @@ class EmployeeController extends Controller
     * @param EmployeeFormRequest $request
     * @return View
     */
-    public function updateEmployee(EmployeeFormRequest $request): mixed
+    public function updateEmployee(EmployeeFormRequest $request): View
     {
-        $param = [
-            'worker_name' => $request->worker_name,
-            'sex' => $request->sex,
-            'age' => $request->age,
-            'address' => $request->address,
-            'department' => $request->department,
-            'division' => $request->division,
-            'hire_date' => $request->hire_date,
-        ];
-
-        DB::beginTransaction();
         try {
+            $param = [
+                'worker_name' => $request->worker_name,
+                'sex' => $request->sex,
+                'age' => $request->age,
+                'address' => $request->address,
+                'department' => $request->department,
+                'division' => $request->division,
+                'hire_date' => $request->hire_date,
+            ];
+            DB::beginTransaction();
             DB::table('workers')->where('worker_id',$request->worker_id)->update($param);
             DB::commit();
             $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
