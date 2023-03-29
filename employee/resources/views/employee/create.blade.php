@@ -20,8 +20,10 @@
     </div>
   @endif
 
-  <div class="text-xl">社員登録</div>
-  <a href="{{ route('index') }}" class="text-xl border-4 w-20 bg-blue-300">戻る</a>
+  <a href="{{ route('index') }}" class="bg-indigo-700 text-white rounded mb-5 text-xl px-1">戻る</a>
+  <div class="d-flex justify-center">
+    <div class="text-3xl">社員登録</div>
+  </div>
   <div class="d-flex justify-center">
     <div class="w-full sm:max-w-4xl mt-8 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
       <form action="/employee/create" method="post">

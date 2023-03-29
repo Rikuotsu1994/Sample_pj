@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmpolyeeFormRequest extends FormRequest
+class EmployeeFormRequest extends FormRequest
 {
     /**
     * @return bool
@@ -19,8 +19,9 @@ class EmpolyeeFormRequest extends FormRequest
     */
     public function rules(): array
     {
-        return [
-            'password' => 'required|min:8',
+        $route= $this->route()->getName();
+
+        $rules =[
             'worker_name' => 'required',
             'sex' => 'required',
             'age' => 'required|numeric|between:15,130',
@@ -29,6 +30,14 @@ class EmpolyeeFormRequest extends FormRequest
             'division' => 'required',
             'hire_date' => 'required|date',
         ];
+
+        switch ($route) {
+            case 'create':
+            $rules['password'] = ['required','min:8',];
+            break;
+        }
+        return $rules;
+
     }
 
     /**

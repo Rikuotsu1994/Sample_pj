@@ -23,15 +23,16 @@ Route::get('employee/', function () {return view('employee/index');})
 Route::get('employee/create', function () {return view('employee/create');})
 ->middleware(['auth', 'verified'])->name('create');
 
-Route::post('employee/create', [EmployeeController::class, 'createEmployee'])->name('create');
+Route::post('employee/create', [EmployeeController::class, 'createEmployee'])
+->middleware(['auth', 'verified'])->name('create');
 
 Route::get('employee/search', [EmployeeController::class, 'searchEmployee'])
 ->middleware(['auth', 'verified'])->name('search');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('employee/update/{worker_id?}', [EmployeeController::class, 'getUpdateEmployee'])
+->middleware(['auth', 'verified'])->name('update');
+
+Route::post('employee/update/{worker_id}', [EmployeeController::class, 'updateEmployee'])
+->middleware(['auth', 'verified'])->name('update');
 
 require __DIR__.'/auth.php';
