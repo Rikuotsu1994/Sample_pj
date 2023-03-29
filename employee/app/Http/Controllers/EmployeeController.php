@@ -88,12 +88,10 @@ class EmployeeController extends Controller
     public function getUpdateEmployee(Request $request): View
     {
         $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
-        if ($workers->isNotEmpty()) {
-            return view('/employee/update', ['workers' => $workers]);
-        } else {
+        if ($workers->isEmpty()) {
             Session::flash('message', '更新対象の社員データは存在しません。社員検索画面に戻ります。');
-            return view('/employee/update', ['workers' => $workers]);
         }
+        return view('/employee/update', ['workers' => $workers]);
     }
 
     /**
