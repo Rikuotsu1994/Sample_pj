@@ -29,10 +29,7 @@ Route::post('employee/create', [EmployeeController::class, 'createEmployee'])
 Route::get('employee/search', [EmployeeController::class, 'searchEmployee'])
 ->middleware(['auth', 'verified'])->name('search');
 
-Route::get('employee/update', function () {return view('employee/update');})
-->middleware(['auth', 'verified'])->name('update');
-
-Route::get('employee/update/{worker_id}', [EmployeeController::class, 'getUpdateEmployee'])
+Route::get('employee/update/{worker_id?}', [EmployeeController::class, 'getUpdateEmployee'])
 ->middleware(['auth', 'verified'])->name('update');
 
 Route::post('employee/update/{worker_id}', [EmployeeController::class, 'updateEmployee'])
