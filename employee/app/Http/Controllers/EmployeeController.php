@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Exception;
 use Session;
 
 class EmployeeController extends Controller
@@ -121,6 +122,44 @@ class EmployeeController extends Controller
             $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
             Session::flash('message', '更新に失敗しました。社員検索画面に戻ります。');
             return view('employee/update', ['workers' => $workers]);
+        }
+    }
+
+    /**
+    * 削除対象の社員データを取得します
+    *
+    * @param Request $request
+    * @return View
+    */
+    public function getDeleteEmployee(Request $request): View
+    {
+        $workers = DB::table('workers')->where('worker_id', $request->worker_id)->get();
+        $workers->isEmpty() ? Session::flash('message', '削除対象の社員データは存在しません。社員検索画面に戻ります。') : null ;
+        return view('/employee/delete', ['workers' => $workers]);
+    }
+
+    /**
+    * 社員データを削除します
+    *
+    * @param Request $request
+    * @return View
+    */
+    public function deleteEmployee(Request $request): View
+    {
+        try {
+            if (isset($request['agree'])) {
+                DB::beginTransaction();
+                DB::table('workers')->where('worker_id',$request->worker_id)->delete();
+                DB::commit();
+                Session::flash('message', '削除が完了しました。社員検索画面に戻ります。');
+                return view('employee/delete', ['worker_id', $request->worker_id]);
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            Session::flash('message', '削除に失敗しました。社員検索画面に戻ります。');
+            return view('employee/delete', ['worker_id', $request->worker_id]);
         }
     }
 }

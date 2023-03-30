@@ -35,4 +35,10 @@ Route::get('employee/update/{worker_id?}', [EmployeeController::class, 'getUpdat
 Route::post('employee/update/{worker_id}', [EmployeeController::class, 'updateEmployee'])
 ->middleware(['auth', 'verified'])->name('update');
 
+Route::get('employee/delete/{worker_id?}', [EmployeeController::class, 'getDeleteEmployee'])
+->middleware(['auth', 'verified'])->name('delete');
+
+Route::post('employee/delete/{worker_id}', [EmployeeController::class, 'deleteEmployee'])
+->middleware(['auth', 'verified'])->name('delete');
+
 require __DIR__.'/auth.php';
