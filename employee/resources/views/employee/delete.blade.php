@@ -1,24 +1,21 @@
 <x-app-layout>
-  @if (Session::has('message'))
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script>
-      $(window).load(function() {
-        $('#modal_box').modal('show');
+  <x-dialog>
+    <x-slot name="btnlink">
+      {{ route('search') }}
+    </x-slot>
+  </x-dialog>
+  <script>
+    $(function() {
+      $('#submit').prop('disabled', true);
+      $('#agree').on('click', function() {
+        if ($(this).prop('checked') == false) {
+          $('#submit').prop('disabled', true);
+        } else {
+          $('#submit').prop('disabled', false);
+        }
       });
-    </script>
-    <div class="modal fade modal-lg" id="modal_box" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body fs-3">
-            {{ session('message') }}
-          </div>
-          <div class="modal-footer">
-            <a href="{{ route('search') }}" class="btn btn-outline-dark">OK</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  @endif
+    });
+  </script>
 
   <a href="{{ route('search') }}" class="bg-indigo-700 text-white rounded mb-5 text-xl px-1">戻る</a>
   <div class="d-flex justify-center">
@@ -79,19 +76,6 @@
                 <p class="w-full py-2 border-b focus:outline-none focus:border-b-4 border-green-300">
                   {{$worker->hire_date}}</p>
               </div>
-
-              <script>
-                $(function() {
-                  $('#submit').prop('disabled', true);
-                  $('#agree').on('click', function() {
-                    if ($(this).prop('checked') == false) {
-                      $('#submit').prop('disabled', true);
-                    } else {
-                      $('#submit').prop('disabled', false);
-                    }
-                  });
-                });
-              </script>
 
               <div class="d-flex justify-center text-red-600 font-semibold">
                 上記の社員データを削除します。<br>削除した社員データは復旧できません。
