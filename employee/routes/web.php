@@ -50,4 +50,7 @@ Route::get('employee/password/update', function () {return view('employee/update
 Route::post('employee/password/update', [EmployeeController::class, 'updatePassword'])
 ->middleware(['auth', 'verified'])->name('post.password.update');
 
+Route::get('employee/password/reset/{worker_id?}', [EmployeeController::class, 'resetPassword'])
+->middleware(['auth', 'verified'])->name('password/reset');
+
 require __DIR__.'/auth.php';

@@ -1,4 +1,31 @@
 <x-app-layout>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    function resetbtn(id) {
+      $('#password_reset').modal('show');
+      {{-- document.getElementById('yes').innerHTML = id; --}}
+      document.getElementById('yes').innerHTML = "<a class=\"btn btn-outline-dark\" href=" + id + ">OK</a>";
+    };
+  </script>
+  <div class="modal fade modal-lg" id="password_reset" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body fs-3">
+          パスワードリセットしますか？
+        </div>
+        <div class="modal-footer">
+          <a id="yes"></a>
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <x-dialog>
+    <x-slot name="btnlink">
+      {{ route('search') }}
+    </x-slot>
+  </x-dialog>
+
   <a href="{{ route('index') }}" class="bg-indigo-700 text-white rounded mb-5 text-xl px-1">戻る</a>
   <div class="d-flex justify-center">
     <div class="text-3xl">社員検索</div>
@@ -37,10 +64,7 @@
   </div>
 
   <div class="d-flex justify-center">
-    <div class="text-3xl pt-4">社員一覧</div>
-  </div>
-  <div class="d-flex justify-center">
-    <div class="text-xl w-full sm:max-w-7xl mt-8 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div class="text-lg w-full sm:max-w-7xl mt-8 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
       <table class="table-fixed border-collapse border border-slate-400">
         <tr class="[&>th]:border border-slate-300">
           <th class="w-[60px]">id</th>
@@ -51,9 +75,13 @@
           <th class="w-[240px]">所属部署</th>
           <th class="w-[240px]">所属課</th>
           <th class="w-[140px]">入社日</th>
-          <th class="w-[60px]">更新</th>
-          <th class="w-[60px]">削除</th>
+          <th class="w-[55px]">更新</th>
+          <th class="w-[55px]">削除</th>
+          @if (Auth()->user()->worker_id === 1)
+            <th class="w-[120px]">パスワードリセット</th>
+          @endif
         </tr>
+        @if (!empty($workers))
         @foreach ($workers as $worker)
           <tr class="[&>td]:border border-slate-300">
             <td>{{ $worker->worker_id }}</td>
@@ -66,8 +94,12 @@
             <td>{{ $worker->hire_date }}</td>
             <td><a class="bg-indigo-700 text-white px-1 rounded" href="{{ route('update',[$worker->worker_id]) }}">更新</td>
             <td><a class="bg-indigo-700 text-white px-1 rounded" href="{{ route('delete',[$worker->worker_id]) }}">削除</td>
+            @if (Auth()->user()->worker_id === 1)
+              <td><a class="bg-indigo-700 text-base text-white px-1 rounded inline-block mx-auto text-center" onclick="resetbtn(this.id)" id="{{ route('password/reset',[$worker->worker_id]) }}">パスワード<br>リセット</td>
+            @endif
           </tr>
         @endforeach
+        @endif
       </table>
     </div>
   </div>

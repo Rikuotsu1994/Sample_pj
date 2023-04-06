@@ -188,4 +188,35 @@ class EmployeeController extends Controller
             return view('employee/update_password');
         }
     }
+
+    /**
+    * 社員のパスワードをリセットします。
+    *
+    * @param Request $request
+    * @return View
+    */
+    public function resetPassword(Request $request): mixed
+    {
+        try {
+            $worker_id = Auth::id();
+            if ($worker_id === 1) {
+                $password = str_pad(rand(0,99999999),8,0, STR_PAD_LEFT);
+                $param = [
+                    'password' => bcrypt($password),
+                ];
+                DB::beginTransaction();
+                DB::table('workers')->where('worker_id',$request->worker_id)->update($param);
+                DB::commit();
+                $flashmassage = '新しいパスワードは「' . $password . '」です。';
+                Session::flash('message', $flashmassage);
+                return redirect('/employee/search');
+            } else {
+            throw new Exception();
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            Session::flash('message', 'パスワードリセットに失敗しました。検索画面に戻ります。');
+            return redirect('/employee/search');
+        }
+    }
 }
