@@ -41,4 +41,13 @@ Route::get('employee/delete/{worker_id?}', [EmployeeController::class, 'getDelet
 Route::post('employee/delete/{worker_id}', [EmployeeController::class, 'deleteEmployee'])
 ->middleware(['auth', 'verified'])->name('post.delete');
 
+Route::post('employee/update/{worker_id}', [EmployeeController::class, 'updateEmployee'])
+->middleware(['auth', 'verified'])->name('post.update');
+
+Route::get('employee/password/update', function () {return view('employee/update_password');})
+->middleware(['auth', 'verified'])->name('password.update');
+
+Route::post('employee/password/update', [EmployeeController::class, 'updatePassword'])
+->middleware(['auth', 'verified'])->name('post.password.update');
+
 require __DIR__.'/auth.php';

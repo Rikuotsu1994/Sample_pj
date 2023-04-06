@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeFormRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -160,6 +161,31 @@ class EmployeeController extends Controller
             DB::rollBack();
             Session::flash('message', '削除に失敗しました。社員検索画面に戻ります。');
             return view('employee/delete', ['worker_id', $request->worker_id]);
+        }
+    }
+
+    /**
+    * ログインユーザーのパスワードを更新します。
+    *
+    * @param UpdatePasswordRequest $request
+    * @return View
+    */
+    public function updatePassword(UpdatePasswordRequest $request): View
+    {  
+        try {
+            $param = [
+                'password' => bcrypt($request->password),
+            ];
+            $worker_id = Auth::id();
+            DB::beginTransaction();
+            DB::table('workers')->where('worker_id', $worker_id)->update($param);
+            DB::commit();
+            Session::flash('message', 'パスワード更新が完了しました。トップ画面に戻ります。');
+            return view('employee/update_password');
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Session::flash('message', 'パスワード更新に失敗しました。トップ画面に戻ります。');
+            return view('employee/update_password');
         }
     }
 }
