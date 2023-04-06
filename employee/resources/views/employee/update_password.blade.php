@@ -12,7 +12,7 @@
   <div class="d-flex justify-center">
     <div class="w-full sm:max-w-4xl mt-8 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
       <div class="[&_div]:mb-5 text-xl">
-        <form action="/employee/change/password" method="post">
+        <form action="/employee/password/update" method="post">
           @csrf
 
           <div>

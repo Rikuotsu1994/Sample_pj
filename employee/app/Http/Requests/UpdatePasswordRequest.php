@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ChangePasswordRequest extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     /**
     * @return bool
@@ -25,7 +25,7 @@ class ChangePasswordRequest extends FormRequest
         return [
             'current_password' => ['required'],
             'password' => ['required', 'min:8', 'confirmed']
-            ];
+        ];
     }
 
     /**
@@ -38,7 +38,6 @@ class ChangePasswordRequest extends FormRequest
             'password.required' => 'パスワードを入力してください。',
             'password.min' => 'パスワードは8文字以上入力してください。',
             'password.confirmed' => '確認用パスワードと一致しません。',
-
         ];
     }
 

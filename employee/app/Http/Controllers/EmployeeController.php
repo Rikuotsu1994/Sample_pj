@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeFormRequest;
-use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -167,10 +167,10 @@ class EmployeeController extends Controller
     /**
     * ログインユーザーのパスワードを更新します。
     *
-    * @param ChangePasswordRequest $request
+    * @param UpdatePasswordRequest $request
     * @return View
     */
-    public function changePassword(ChangePasswordRequest $request): View
+    public function updatePassword(UpdatePasswordRequest $request): View
     {  
         try {
             $param = [
@@ -181,11 +181,11 @@ class EmployeeController extends Controller
             DB::table('workers')->where('worker_id', $worker_id)->update($param);
             DB::commit();
             Session::flash('message', 'パスワード更新が完了しました。トップ画面に戻ります。');
-            return view('employee/change_password');
+            return view('employee/update_password');
         } catch (QueryException $e) {
             DB::rollBack();
             Session::flash('message', 'パスワード更新に失敗しました。トップ画面に戻ります。');
-            return view('employee/change_password');
+            return view('employee/update_password');
         }
     }
 }
