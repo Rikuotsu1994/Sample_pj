@@ -12,7 +12,7 @@
           {{ session('message') }}
         </div>
         <div class="modal-footer">
-          <a href="{{ $btnlink }}" class="btn btn-outline-dark">OK</a>
+          <a href="{{ $linkbtn }}" class="btn btn-outline-dark">OK</a>
         </div>
       </div>
     </div>

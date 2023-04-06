@@ -1,9 +1,8 @@
 <x-app-layout>
   <x-dialog>
-    <x-slot name="btnlink">
-      {{ route('search') }}
-    </x-slot>
+    <x-slot name="linkbtn">{{ route('search') }}</x-slot>
   </x-dialog>
+  <x-slot name="returnbtn">{{ route('search') }}</x-slot>
   <script>
     $(function() {
       $('#submit').prop('disabled', true);
@@ -16,11 +15,7 @@
       });
     });
   </script>
-
-  <a href="{{ route('search') }}" class="bg-indigo-700 text-white rounded mb-5 text-xl px-1">戻る</a>
-  <div class="d-flex justify-center">
-    <div class="text-3xl">社員削除</div>
-  </div>
+  <x-slot name="pagetitle">社員削除</x-slot>
   <div class="d-flex justify-center">
     <div class="w-full sm:max-w-4xl mt-8 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
 

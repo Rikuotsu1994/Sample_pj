@@ -11,7 +11,13 @@
 </head>
 <body>
   <div>
+  @include('layouts.navigation')
     <main>
+  @if (isset( $pagetitle ))
+    <div class="d-flex justify-center">
+      <div class="text-3xl">{{ $pagetitle }}</div>
+    </div>
+  @endif
       {{ $slot }}
     </main>
   </div>

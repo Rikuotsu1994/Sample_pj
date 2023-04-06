@@ -1,8 +1,6 @@
 <x-app-layout>
-  <a href="{{ route('index') }}" class="bg-indigo-700 text-white rounded mb-5 text-xl px-1">戻る</a>
-  <div class="d-flex justify-center">
-    <div class="text-3xl">社員検索</div>
-  </div>
+  <x-slot name="returnbtn">{{ route('index') }}</x-slot>
+  <x-slot name="pagetitle">社員検索</x-slot>
   <div class="d-flex justify-center">
     <div class="w-full sm:max-w-2xl mt-4 px-4 py-3 bg-white shadow-md overflow-hidden sm:rounded-lg">
       <form action="/employee/search" method="get">
