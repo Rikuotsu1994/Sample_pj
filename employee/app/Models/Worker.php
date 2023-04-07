@@ -11,6 +11,8 @@ class Worker extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    const administrator_number = 1;
+
     /**
     * @var array
     */

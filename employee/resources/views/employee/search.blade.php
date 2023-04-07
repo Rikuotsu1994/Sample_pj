@@ -1,9 +1,8 @@
 <x-app-layout>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script>
-    function resetbtn(id) {
+    function reset_btn(id) {
       $('#password_reset').modal('show');
-      {{-- document.getElementById('yes').innerHTML = id; --}}
       document.getElementById('yes').innerHTML = "<a class=\"btn btn-outline-dark\" href=" + id + ">OK</a>";
     };
   </script>
@@ -20,11 +19,11 @@
       </div>
     </div>
   </div>
-  <x-dialog>
-    <x-slot name="btnlink">
+  <x-password-dialog>
+    <x-slot name="link_btn">
       {{ route('search') }}
     </x-slot>
-  </x-dialog>
+  </x-password-dialog>
   <x-slot name="return_btn">{{ route('index') }}</x-slot>
   <x-slot name="page_title">社員検索</x-slot>
 
@@ -62,6 +61,9 @@
   </div>
 
   <div class="d-flex justify-center">
+    <div class="text-3xl pt-4">社員一覧</div>
+  </div>
+  <div class="d-flex justify-center">
     <div class="text-lg w-full sm:max-w-7xl mt-8 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
       <table class="table-fixed border-collapse border border-slate-400">
         <tr class="[&>th]:border border-slate-300">
@@ -75,7 +77,7 @@
           <th class="w-[140px]">入社日</th>
           <th class="w-[55px]">更新</th>
           <th class="w-[55px]">削除</th>
-          @if (Auth()->user()->worker_id === 1)
+          @if (Auth()->user()->worker_id === App\Models\Worker::administrator_number)
             <th class="w-[120px]">パスワードリセット</th>
           @endif
         </tr>
@@ -92,8 +94,8 @@
             <td>{{ $worker->hire_date }}</td>
             <td><a class="bg-indigo-700 text-white px-1 rounded" href="{{ route('update',[$worker->worker_id]) }}">更新</td>
             <td><a class="bg-indigo-700 text-white px-1 rounded" href="{{ route('delete',[$worker->worker_id]) }}">削除</td>
-            @if (Auth()->user()->worker_id === 1)
-              <td><a class="bg-indigo-700 text-base text-white px-1 rounded inline-block mx-auto text-center" onclick="resetbtn(this.id)" id="{{ route('password/reset',[$worker->worker_id]) }}">パスワード<br>リセット</td>
+            @if (Auth()->user()->worker_id === App\Models\Worker::administrator_number)
+              <td><a class="bg-indigo-700 text-base text-white px-1 rounded inline-block mx-auto text-center" onclick="reset_btn(this.id)" id="{{ route('password.reset',[$worker->worker_id]) }}">パスワード<br>リセット</td>
             @endif
           </tr>
         @endforeach

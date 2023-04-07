@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeFormRequest;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\Models\Worker;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -193,13 +194,13 @@ class EmployeeController extends Controller
     * 社員のパスワードをリセットします。
     *
     * @param Request $request
-    * @return View
+    * @return RedirectResponse
     */
-    public function resetPassword(Request $request): mixed
+    public function resetPassword(Request $request): RedirectResponse
     {
         try {
             $worker_id = Auth::id();
-            if ($worker_id === 1) {
+            if ($worker_id === Worker::administrator_number) {
                 $password = str_pad(rand(0,99999999),8,0, STR_PAD_LEFT);
                 $param = [
                     'password' => bcrypt($password),
@@ -208,14 +209,14 @@ class EmployeeController extends Controller
                 DB::table('workers')->where('worker_id',$request->worker_id)->update($param);
                 DB::commit();
                 $flashmassage = '新しいパスワードは「' . $password . '」です。';
-                Session::flash('message', $flashmassage);
+                Session::flash('password_message', $flashmassage);
                 return redirect('/employee/search');
             } else {
             throw new Exception();
             }
         } catch (Exception $e) {
             DB::rollBack();
-            Session::flash('message', 'パスワードリセットに失敗しました。検索画面に戻ります。');
+            Session::flash('password_message', 'パスワードリセットに失敗しました。検索画面に戻ります。');
             return redirect('/employee/search');
         }
     }
