@@ -1,10 +1,10 @@
 <x-app-layout>
   <x-dialog>
-    <x-slot name="linkbtn">{{ route('index') }}</x-slot>
+    <x-slot name="link_btn">{{ route('index') }}</x-slot>
   </x-dialog>
-  <x-slot name="returnbtn">{{ route('index') }}</x-slot>
+  <x-slot name="return_btn">{{ route('index') }}</x-slot>
 
-  <x-slot name="pagetitle">社員登録</x-slot>
+  <x-slot name="page_title">社員登録</x-slot>
   <div class="d-flex justify-center">
     <div class="w-full sm:max-w-4xl mt-8 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
       <form action="/employee/create" method="post">

@@ -7,9 +7,9 @@
     </form> 
   </div>
 
-  @if (isset( $returnbtn ))
+  @if (isset( $return_btn ))
     <div class="m-3">
-      <a href="{{ $returnbtn }}" class="bg-indigo-700 text-white rounded px-8 py-2 text-xl">戻る</a>
+      <a href="{{ $return_btn }}" class="bg-indigo-700 text-white rounded px-8 py-2 text-xl">戻る</a>
     </div>
   @endif
 </nav>

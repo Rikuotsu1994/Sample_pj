@@ -13,9 +13,9 @@
   <div>
   @include('layouts.navigation')
     <main>
-  @if (isset( $pagetitle ))
+  @if (isset( $page_title ))
     <div class="d-flex justify-center">
-      <div class="text-3xl">{{ $pagetitle }}</div>
+      <div class="text-3xl">{{ $page_title }}</div>
     </div>
   @endif
       {{ $slot }}
